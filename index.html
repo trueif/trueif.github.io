@@ -1,0 +1,120 @@
+<html>
+<head>
+<title>AQ Test</title>
+</head>
+<body onload="javascript:genQuiz();">
+<div>
+<script>
+let q = [
+['他/她喜欢和別人一起做事多于单独处事。', 0], 
+['他/她较喜欢以相同方式重复做事。', 1], 
+['如要想像事情，他/她觉得在脑海中构想该事情的画面是容易的。', 1],
+['他/她常常太沉醉于某事情，以致忽略了其他東西。', 1],
+['他/她常常留意到一些別人不以为意的细微声音。', 1],
+['他/她常常留意车牌号或类似的数列资料。', 1],
+['他/她较难理解怎樣才是有礼貌的应有表現。', 1],
+['在阅读故事時，他/她能轻易地想像出角色的模樣。', 0],
+['他/她对日期很著迷。', 1],
+['在社交场合中，他/她能轻易听懂不同人的对话。', 0],
+['他/她觉得身处社交场合是轻松自在的事。', 0],
+['他/她傾向留意一些別人不注意的细节。', 1],
+['他/她喜欢去图书馆多于生日会。', 1],
+['他/她觉得虚构故事是容易的。', 0],
+['相对于物件，他/她对人有更大兴趣。', 0],
+['他/她容易有强烈的喜好，如不能从事這些喜好，他/她会感到不开心。', 1],
+['他/她喜愛与別人交谈。', 0],
+['他/她说话时別人不容易插嘴。', 1],
+['他/她对数字很著迷。', 1],
+['在阅读故事时，他/她觉得很难明白故事人物的意图或感受。', 1],
+['他/她并不特別喜欢阅读小说。', 1],
+['他/她觉得很难结识新朋友。', 1],
+['他/她常常留意事物的規律模式。', 1],
+['他/她喜歡去剧院多于博物館。', 0],
+['如他/她的日常生活程序被扰乱，他/她不会感到不开心。', 1],
+['他/她不懂得怎样与同辈持续一段对话。', 1],
+['他/她觉得理解对方说话的背后含意是容易的。', 0],
+['他/她通常留意事情的整体多于细节。', 0],
+['他/她不善于牢记电话号码。', 0],
+['他/她很少留意身处境地或別人外表的细微改变。', 1],
+['如別人对他/她的说话感厌烦，他/她会知道。', 0],
+['他/她觉得同时处理不同的事情是容易的。', 0],
+['在电话对话中，他/她不肯定应该何时发言。', 1],
+['他/她喜爱自发地做事。', 1],
+['他/她常常是最后一个才明白笑话意思的人。', 1],
+['他/她觉得从察看別人表情去了解他们的想法或感受是容易的。', 0],
+['若正进行的活动被打断，他/她可以很快恢恢复进行事情。', 0],
+['他/她善于与別人交谈。', 0],
+['別人常常告知他/她，他/她不断重复做或说同一件事情。', 1],
+['当他/她在幼稚园时，他/她喜欢和小朋友玩假装游戏。', 0],
+['他/她喜欢收集某个种类的资料 (如车类、雀鸟类、火车类、植物类等)。', 1],
+['他/她很难想像自己成为別人会是怎样的。', 1],
+['他/她喜欢仔细计划自己參与的每一項活动。', 1],
+['他/她喜欢社交场合。', 0],
+['他/她觉得理解別人意图是困难的。', 1],
+['新环境令他/她紧张。', 1],
+['他/她喜欢认识新朋友。', 0],
+['他/她善于观察而不会伤害別人的感受。', 0],
+['他/她不善于牢记別人的出生日期。', 0],
+['他/她觉得和小朋友玩假装游戏是容易的。', 0],
+];
+let c = ['完全同意', '少许同意', '少许不同意', '完全不同意'];
+function genQuiz() {
+  //alert ('Quiz Gen');
+  var quiz = document.getElementById('quiz');
+  q.forEach(function(value, index) {
+    quiz.innerHTML += ('<div style="padding:10px"><span style="font-size:16px;"><b>' + (index+1) + '. ' + value[0] + '</b></span><br />');
+	for (let i = 0; i < 4; i++) {
+	  quiz.innerHTML += '&nbsp; &nbsp; <input type="radio" name="q' + index + '" value ="' + i + '" id="q' + index + '' + '_' + i + '" style="padding-left:10px;" /><span style="padding-left:5px; font-size:15px;" onclick="javascript:document.getElementById(\'q' + index + '_' + i +'\').checked = true">' + c[i] + '</span><br />' 
+	}
+	quiz.innerHTML += '</div>'
+  });
+  quiz.innerHTML += '<br /><button type="button" onclick="checkAnswers()">提交</button>'
+}
+function checkAnswers() {
+  const questions = document.querySelectorAll('form#quiz input[type="radio"]');
+  var result = document.getElementById('result');
+  var r = new Array;
+  questions.forEach((question, index) => {
+	var qid = Math.floor(index / 4);
+	if (question.checked==true) {
+	  r.push(question.value);
+	}
+  });
+  var s = 0;
+  if (r.length != q.length){
+    alert('有题目未答，请检查！');
+  } else {
+    //result.innerHTML += (question.checked + question.value + index + qid + '<br />');
+    r.forEach(function(value, index) {
+	  //result.innerHTML += (index + ': ' + value + '<br />');
+	  ref = q[index][1];
+	  res = 1 - Math.floor(value / 2);
+	  if (ref == res) {
+	    s+=1;
+	  }
+    });
+  }
+  // 显示结果
+  document.getElementById('result').innerText = `你的得分是: ${s}`;
+}
+</script>
+<form id="quiz">
+  
+
+  <!--<h2>问题1: </h2>
+  <input type="radio" name="q1" value="A"> 答案A<br>
+  <input type="radio" name="q1" value="B"> 答案B<br>
+ 
+  <h2>问题2: </h2>
+  <input type="radio" name="q2" value="A"> 答案A<br>
+  <input type="radio" name="q2" value="B"> 答案B<br>
+  
+   更多问题... -->
+ 
+  
+</form>
+ 
+<div id="result"></div>
+</div>
+</body>
+</html>
