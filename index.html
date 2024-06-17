@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html >
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>AQ Test</title>
 </head>
 <body onload="javascript:genQuiz();">
@@ -68,6 +70,7 @@ function genQuiz() {
 	}
 	quiz.innerHTML += '</div>'
   });
+  quiz.innerHTML += '<div id="result" style="color:blue;padding-top:10px"></div>';
   quiz.innerHTML += '<br /><button type="button" onclick="checkAnswers()">提交</button>'
 }
 function checkAnswers() {
@@ -114,7 +117,7 @@ function checkAnswers() {
   
 </form>
  
-<div id="result"></div>
+
 </div>
 </body>
 </html>
